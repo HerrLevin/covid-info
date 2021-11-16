@@ -36,6 +36,6 @@ if ($state === 'Basisstufe') {
 
 @section('icon', $icon)
 
-@section('heading', $state)
+@section('number', $state)
 
 @section('info', strtr('*Data retrieved from corona.karlsruhe.de at: :dateTime', [':dateTime' => $currentDate->format('Y-m-d H:i:s')]))
