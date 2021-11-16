@@ -7,9 +7,9 @@ $count = $DIVIAttributes['faelleCovidAktuell'];
 $bedsFree = $DIVIAttributes['intensivBettenFrei'];
 if ($count < 100) {
     $risk = 0;
-} else if ($count < 250) {
+} else if ($count <= 250) {
     $risk = 1;
-} else if ($count < 390){
+} else if ($count <= 390){
     $risk = 2;
 } else if ($count < ($DIVIAttributes['intensivBettenGesamt'] * $DIVIAttributes['covidToIntensivBettenPercent'] / 100)) {
     $risk = 3;
