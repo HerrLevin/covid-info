@@ -2,16 +2,19 @@
 $DIVI = "https://www.intensivregister.de/api/public/reporting/laendertabelle";
 $currentDate = new DateTime('Europe/Berlin');
 // 7-day-incidence
-$DIVIAttributes = json_decode(file_get_contents($DIVI), true)['data'][7];
-$count = $DIVIAttributes['faelleCovidAktuell'];
-$bedsFree = $DIVIAttributes['intensivBettenFrei'];
+$DIVIAttributes = json_decode(file_get_contents($DIVI), true)['data'];
+
+$key = array_search('BADEN_WUERTTEMBERG', array_column($DIVIAttributes, 'bundesland'));
+$federalState = $DIVIAttributes[$key];
+$count = $federalState['faelleCovidAktuell'];
+$bedsFree = $federalState['intensivBettenFrei'];
 if ($count < 100) {
     $risk = 0;
 } else if ($count <= 250) {
     $risk = 1;
 } else if ($count <= 390){
     $risk = 2;
-} else if ($count < $DIVIAttributes['covidKapazitaetFrei']) {
+} else if ($federalState['covidKapazitaetFrei'] > 50) {
     $risk = 3;
 } else {
     $risk = 4;
@@ -28,4 +31,4 @@ if ($count < 100) {
 
 @section('number', $count)
 
-@section('info', strtr('*Data retrieved from DIVI at: :dateTime (:state)', [':dateTime' => $currentDate->format('Y-m-d H:i:s'), ':state' => $DIVIAttributes['bundesland']]))
+@section('info', strtr('*Data retrieved from DIVI at: :dateTime (:state)', [':dateTime' => $currentDate->format('Y-m-d H:i:s'), ':state' => $federalState['bundesland']]))
