@@ -11,7 +11,7 @@ if ($count < 100) {
     $risk = 1;
 } else if ($count <= 390){
     $risk = 2;
-} else if ($count < ($DIVIAttributes['intensivBettenGesamt'] * $DIVIAttributes['covidToIntensivBettenPercent'] / 100)) {
+} else if ($count < $DIVIAttributes['covidKapazitaetFrei']) {
     $risk = 3;
 } else {
     $risk = 4;
