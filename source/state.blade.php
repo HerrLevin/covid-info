@@ -12,7 +12,7 @@ $doc = new DOMDocument();
 $doc->loadHTML($html);
 $strong = $doc->getElementsByTagName('strong');
 foreach ($strong as $entry) {
-    if (in_array($entry->nodeValue, ['Basisstufe', 'Warnstufe', 'Alarmstufe']) ) {
+    if (in_array($entry->nodeValue, ['Basisstufe', 'Warnstufe', 'Alarmstufe', 'Alarmstufe II']) ) {
         $state = $entry->nodeValue;
     }
 }
@@ -26,6 +26,9 @@ if ($state === 'Basisstufe') {
 } else if ($state === 'Alarmstufe'){
     $risk = 2;
     $icon = 'fas fa-skull-crossbones';
+} else if ($state === 'Alarmstufe II') {
+	$risk = 3;
+	$icon = 'fas fa-biohazard';
 } else {
     $risk = 4;
     $icon = 'fas fa-question-circle';
